@@ -1,3 +1,4 @@
+import java.nio.channels.ScatteringByteChannel;
 import java.util.Scanner;
 
 public class RewardsConverter {
@@ -9,8 +10,14 @@ public class RewardsConverter {
         double cashValue;
         try {
             cashValue = Double.parseDouble(input_value);
+            if (cashValue <= 0 ) {
+                throw new IllegalArgumentException("Only values greater then 0 are allowed");
+            }
         } catch (NumberFormatException exception) {
             System.out.println("Could not parse input value as a double, exiting");
+            return;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             return;
         }
         System.out.println("converting $" + input_value + " to miles");
